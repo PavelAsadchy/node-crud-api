@@ -1,2 +1,3 @@
+import { PORT } from './common/config';
 
-console.log('Hello111');
+console.log(PORT);
