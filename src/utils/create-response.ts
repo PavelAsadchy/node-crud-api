@@ -3,15 +3,15 @@ import { ServerResponse } from 'node:http';
 export const createResponse = (
   res: ServerResponse,
   statusCode: number,
-  message?: string
+  payload?: any
 ) => {
   res.writeHead(statusCode, {
     'Content-Type': 'application/json',
   });
   
-  if (typeof message === 'string') {
-    res.end(JSON.stringify({ message }));
+  if (typeof payload === 'string') {
+    res.end(JSON.stringify({ message: payload }));
   } else {
-    res.end(JSON.stringify(message));
+    res.end(JSON.stringify(payload));
   }
 };

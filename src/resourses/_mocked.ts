@@ -1,3 +1,9 @@
 import { User } from '../models/user.model';
 
-export const MOCKED_DATA: User[] = [];
+interface MockedDB {
+  Users: User[]
+}
+
+export const MOCKED_DATA: MockedDB = {
+  Users: []
+};
