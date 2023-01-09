@@ -5,7 +5,8 @@
   "type": "module",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node --experimentalSpecifierResolution node src/main.ts",
+    "start:dev": "cross-env NODE_ENV=development nodemon --exec ts-node --experimentalSpecifierResolution node src/main.ts",
+    "start:prod": "cross-env NODE_ENV=production tsc && node --experimental-specifier-resolution=node build/main.js",
     "lint": "eslint --ext .ts --fix src/"
   },
   "author": "",
@@ -15,6 +16,7 @@
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
