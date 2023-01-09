@@ -1,9 +1,10 @@
 import { IncomingMessage, ServerResponse } from 'node:http';
-import { HTTP_METHOD, HTTP_STATUS, REQUEST_TYPE } from '../common/consts';
+import { API_ENDPOINT, HTTP_METHOD, HTTP_STATUS } from '../common/consts';
 import { createResponse } from '../utils/create-response';
 import { resolveRequest } from './request-resolver';
 import userController from '../models/user.controller';
 import { getReqBody } from '../utils/get-req-body';
+import { NOT_FOUND_ERROR } from '../utils/errors';
 
 export const requestListener = async (
   req: IncomingMessage,
@@ -11,7 +12,12 @@ export const requestListener = async (
 ) => {
   try {
     const { url, method } = req;
-    const [_api, _users, id] = url?.split('/').filter(Boolean) || [];
+    const [api, users, id] = url?.split('/').filter(Boolean) || [];
+
+    if (`${api}/${users}` !== API_ENDPOINT) {
+      createResponse(res, HTTP_STATUS.NOT_FOUND, 'Route not found');
+      return;
+    }
 
     if (id) {
       switch (method) {
@@ -40,11 +46,13 @@ export const requestListener = async (
           const newUser = await userController.create(body);
           createResponse(res, HTTP_STATUS.CREATED, newUser);
           break;
-        default:
-          createResponse(res, HTTP_STATUS.NOT_FOUND, 'Route not found');
       }
     }
-  } catch {
-    createResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, 'Server error occured');
+  } catch (err) {
+    if (err instanceof NOT_FOUND_ERROR) {
+      createResponse(res, HTTP_STATUS.NOT_FOUND, `Not Found. ${err.message}`);
+    } else {
+      createResponse(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, 'Server error occured');
+    }
   }
 };

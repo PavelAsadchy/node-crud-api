@@ -1,13 +1,12 @@
 import { User } from "./user.model";
 import { MOCKED_DATA } from '../resourses/_mocked';
-
-const TABLE = 'Users';
+import { NOT_FOUND_ERROR } from '../utils/errors';
 
 const getAll = async (): Promise<User[]> => MOCKED_DATA['Users'];
 
 const getById = async (id: string): Promise<User> => {
   const entity = await MOCKED_DATA['Users'].find((user: User) => user.id === id);
-  if (!entity) throw new Error(`Entity with ${id} not found`);
+  if (!entity) throw new NOT_FOUND_ERROR(`Entity with id=${id} not found`);
 
   return entity;
 };
@@ -28,7 +27,7 @@ const update = async (id: string, userUpdates: User): Promise<User> => {
 
 const remove = (id: string) => {
   const index = MOCKED_DATA['Users'].findIndex((user: User) => user.id === id);
-  if (index === -1) throw new Error(`Entity with ${id} not found`);
+  if (index === -1) throw new NOT_FOUND_ERROR(`Entity with id=${id} not found`);
 
   MOCKED_DATA['Users'].splice(index, 1);
 };
