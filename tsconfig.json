@@ -11,13 +11,14 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
   "ts-node": {
     "esm": true
   },
   "exclude": [
-    "node_modules/"
+    "node_modules/",
+    "__test__"
   ],
   "include": [
     "./src/**/*.ts"

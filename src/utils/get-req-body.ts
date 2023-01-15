@@ -1,4 +1,4 @@
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from 'node:http';
 import { User } from '../models/user.model';
 
 export const getReqBody = (req: IncomingMessage): Promise<User> => {
