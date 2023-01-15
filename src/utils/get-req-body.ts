@@ -1,5 +1,5 @@
 import { IncomingMessage } from 'node:http';
-import { User } from '../models/user.model';
+import { User } from '../resourses/user.model';
 
 export const getReqBody = (req: IncomingMessage): Promise<User> => {
   return new Promise((resolve, reject) => {

@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import { afterEach } from '@jest/globals';
 import { validate as uuidValidate } from 'uuid';
-import server from '../src/main';
+import server from '../src/server/server';
 import { API_ENDPOINT, HTTP_STATUS } from '../src/common/consts';
-import { User } from '../src/models/user.model';
+import { User } from '../src/resourses/user.model';
 
 const newUser: User = {
   username: 'Test_name',

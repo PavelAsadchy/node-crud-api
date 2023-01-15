@@ -1,8 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'node:http';
 import { API_ENDPOINT, HTTP_METHOD, HTTP_STATUS } from '../common/consts';
 import { createResponse } from '../utils/create-response';
-import { resolveRequest } from './request-resolver';
-import userController from '../models/user.controller';
+import userController from '../resourses/user.controller';
 import { getReqBody } from '../utils/get-req-body';
 import { NOT_FOUND_ERROR } from '../utils/errors';
 
